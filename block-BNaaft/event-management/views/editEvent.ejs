@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/event-management/public/stylesheets/style.css" />
+    <title>Add Events</title>
+  </head>
+  <body>
+    <main>
+      <div class="flex position">
+        <a style="margin-top: 0.5rem" class="btn" href="/">Home Page</a>
+        <a style="margin-top: 0.5rem" class="btn add-btns-two" href="/events"
+          >Show all events</a
+        >
+      </div>
+      <h2 class="add-event">Edit Event</h2>
+      <div class="flex">
+        <form
+          class="form-control"
+          enctype="multipart/form-data"
+          action="/events/<%= event._id %>"
+          method="POST"
+        >
+          <input
+            type="text"
+            name="title"
+            placeholder="Add title of the event"
+            value="<%= event.title %>"
+          />
+
+          <textarea
+            type="text"
+            name="summary"
+            placeholder="Summary of event..."
+            rows="7"
+          >
+          <%= event.summary %>
+        </textarea
+          >
+
+          <input
+            type="text"
+            name="host"
+            placeholder="Host of event..."
+            value="<%= event.host %>"
+          />
+          <label for="start">Start date:</label>
+          <input
+            name="start_date"
+            type="date"
+            placeholder="Starting date of event..."
+            value="<%= moment(event.start_date).format('YYYY-MM-DD')  %>"
+          />
+          <label for="end">End date:</label>
+          <input
+            name="end_date"
+            type="date"
+            placeholder="End date of event..."
+            value="<%= moment(event.end_date).format('YYYY-MM-DD')  %>"
+          />
+          <input
+            type="text"
+            name="categories"
+            placeholder="Category of event(If multiple, separate by commas)..."
+            value="<%= event.categories %>"
+          />
+
+          <input
+            type="text"
+            name="location"
+            placeholder="Location of event..."
+            value="<%= event.location %>"
+          />
+          <label for="image">Add image:</label>
+          <input type="file" name="cover" placeholder="Image of event.." />
+
+          <input class="submit" type="submit" value="Update Event" />
+          <!-- <button type="submit">add event</button> -->
+        </form>
+      </div>
+    </main>
+    <% include partials/footer %>
+  </body>
+</html>

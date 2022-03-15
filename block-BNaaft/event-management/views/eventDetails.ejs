@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/event-management/public/stylesheets/style.css">
+  <title>Document</title>
+</head>
+<body class="single-event">
+     <header style="font-style:italic;text-align: center; font-size: 3rem;color: white;" >Single events details</header>
+     <div class="detail-btn">
+        <a class="btn list-btn" href="/new">Add events</a>    
+      </div>
+      <div class="detail-btn-two">
+        <a class="btn" href="/events">Show all events</a>
+      </div>
+  <main>
+    <div class="single-details flex flex-c">
+      <div class="flex-25">
+        <img class="full-width event-img" src="/uploads/<%= event.cover  %>" alt="Image Of Event"/>
+      </div>
+      <div class="flex-25 text-details">
+       <h2>Title:<%= event.title %></h2>
+       <p style="font-size: 1rem;">Summary:<%= event.summary %></p>
+       <cite>Host:<%= event.host %></cite>
+       <address>Location:<%= event.location %></address>
+       <div>
+         <span>Categories:</span>
+         <% event.categories.forEach(category=>{ %>
+            <span>
+              <%= category %>
+            </span>
+            <% }); %>
+       </div>
+      
+        <div class="flex flex-c">
+          <time>Start Date: <%= moment(event.start_date).format('DD-MM-YYYY') %></time>
+          <time>End Date: <%= moment(event.end_date).format('DD-MM-YYYY')%></time>
+        </div> 
+
+        <div>
+          <a href="/events/<%= event.id %>/edit">
+            <button class="btn">Edit event</button>
+          </a>
+         <a href="/events/<%= event.id %>/delete">
+            <button class="btn">Delete event</button>
+         </a>
+        </div>
+
+        <div class="flex s-b">
+          <div>
+            <h4><%= event.likes ? event.likes : 0 %></h4>
+
+            <a style="margin-bottom: 1rem; box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.4);" class="btn" href="/events/<%= event.id %>/likes">
+              like
+            </a>
+          </div>
+
+          <div>
+            <h4><%= event.dislikes ? event.dislikes : 0%></h4>
+
+            <a style="margin-bottom: 1rem; box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.4);" class="btn" href="/events/<%= event.id %>/dislikes">
+              Dislike
+            </a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="text-align: center;margin: 1rem 0rem; font-size: 1.5rem;color: white;">Remarks</h3>
+       <% event.remarks.forEach((remark) => {%>
+        <div style="margin-bottom: 2rem;width: 430px;height: auto;align-items: center;" class="flex text-details ">
+           <div>
+              <p style="margin-bottom:1rem;font-size:1rem;margin-right: 1rem;">Remark:<%= remark.text  %> </p>
+              <p style="font-size:1rem;margin-right: 1rem;">Author:<%= remark.author %></p>
+           </div>
+           <div style="align-items: center;" class="flex">
+             <h4 style="margin-right:0.5rem"><%= remark.likes ? remark.likes : 0%></h4>
+              <a href="/remarks/<%= remark.id %>/likes">
+                <button style="background-color:rgb(93,164,187);color: white;font-weight: 900;font-size: 1rem;">like</button>
+              </a>
+              <h4 style="margin:0rem 0.5rem;" ><%= remark.dislikes ? remark.dislikes : 0%></h4>
+              <a href="/remarks/<%= remark.id %>/dislikes">
+                <button style="background-color:rgb(93,164,187);color: white;font-weight: 900;font-size: 1rem;">Dislike</button>
+              </a>
+               <a style="margin:0rem 0.5rem;" href="/remarks/<%= remark.id %>/edit">
+                 <button style="background-color:rgb(93,164,187);color: white;font-weight: 900;font-size: 1rem;">edit</button>
+              </a>
+              <a style="margin:0rem 0.5rem;" href="/remarks/<%= remark.id %>/delete" class="">
+                <button style="background-color:rgb(93,164,187);color: white;font-weight: 900;font-size: 1rem;">delete</button>    
+              </a>
+           </div>
+        </div>
+     
+      <% }) %>
+      <form class="text-details" action="/events/<%=event.id%>/remarks" method="POST">
+          <textarea name="text" cols="" rows="3" placeholder="Add Remarks"></textarea>
+        <div>
+          <input type="text" name="author" placeholder="Author">
+        </div>
+        
+          <input class="btn" type="submit" value="Add remark">
+      </form>
+    </div>
+    </div>
+  </main>
+  <div style="margin-top: 5.6rem;">
+     <%include partials/footer%>
+  </div>
+</body>
+</html>
