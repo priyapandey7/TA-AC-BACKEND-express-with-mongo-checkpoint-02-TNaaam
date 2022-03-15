@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/event-management/public/stylesheets/style.css" />
+    <title>Add Events</title>
+  </head>
+  <body>
+    <% include partials/header %>
+    <main>
+      <div class="flex position">
+        <a class="btn" href="/event-management/routes/events.js">Home Page</a>
+        <a class="btn add-btns-two" href="/events">Show all events</a>
+      </div>
+      <h2 class="add-event">Add Event</h2>
+      <div class="flex">
+        <form
+          class="form-control"
+          enctype="multipart/form-data"
+          action="/events"
+          method="POST"
+        >
+          <input
+            type="text"
+            name="title"
+            placeholder="Add title of the event"
+          />
+
+          <textarea
+            type="text"
+            name="summary"
+            placeholder="Summary of event..."
+            rows="7"
+          ></textarea>
+
+          <input type="text" name="host" placeholder="Host of event..." />
+          <label for="start">Start date:</label>
+          <input
+            type="date"
+            name="start_date"
+            placeholder="Starting date of event..."
+          />
+
+          <label for="end">End date:</label>
+          <input
+            type="date"
+            name="end_date"
+            placeholder="End date of event..."
+          />
+
+          <input
+            type="text"
+            name="categories"
+            placeholder="Category of event(If multiple, separate by commas)..."
+          />
+
+          <input
+            type="text"
+            name="location"
+            placeholder="Location of event..."
+          />
+          <label for="image">Add image:</label>
+          <input type="file" name="cover" placeholder="Image of event.." />
+
+          <input class="submit" type="submit" value="Add Event" />
+          <!-- <button type="submit">add event</button> -->
+        </form>
+      </div>
+    </main>
+    <% include partials/footer %>
+  </body>
+</html>

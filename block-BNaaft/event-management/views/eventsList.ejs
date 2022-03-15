@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/event-management/public/stylesheets/style.css">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <main>
+      <% if(events.length){ %>
+        <div class="flex s-b list-page">
+          <span class="managed">
+            Host:Anuj Kumar
+          </span>
+          <h1 class="list">
+            List of the events
+          </h1>
+          <div>
+            <a class="btn list-btn" href="/new">Add events</a>    
+          </div>
+        </div>
+        <div class="flex s-b container">
+          <aside class="aside-bar">
+            <div>
+              <h2 class="common">Category</h2>
+              <% categoriesArr.forEach(category =>{ %>
+                <a class="flex s-b sp-c" href="/events/filter/?category=<%= category %>"> 
+                  <button class="sort-btn">
+                  <%= category %>
+                  </button>
+                </a>
+              <%  }) %>
+            </div>
+            <hr>
+            <div>
+              <h2 class="common">Location</h2>
+              <% locationArr.forEach(location =>{ %>
+                <a class="flex s-b sp-c" href="/events/filter/?location=<%= location %>"> 
+                  <button class="sort-btn">
+                    <%= location %>
+                  </button>
+                </a>
+              <%  }) %>
+            </div>
+            <hr>
+            <form
+              action="/events/filter"
+              method="GET"
+              class="box"
+            >
+              <h3 class="common">Sort By Date</h3>
+              <div class="add-new">
+                <p>Initial Date: <input type="date" name="firstdate" /></p>
+                <p>Final: Date: <input type="date" name="lastdate" /></p>
+                <input
+                  type="submit"
+                  style="padding: 0.55rem 1rem; text-align: center"
+                  class="btn"
+                  value="Find Events" 
+                />
+                <a style="background-color:rgb(93,164,187);color: white;" class="btn" href="/events">
+                  Show all events
+                </a>
+              </div>
+            </form>
+             
+          </aside>
+          <ul>
+            <% events.map(event=>{ %>
+              <li style="text-align: center;" class="event-box flex flex-c">
+                <div style="height: 12.6rem" class="flex-25">
+                  <img
+                    class="full-width"
+                    src="/uploads/<%= event.cover  %>"
+                    alt="Image Of Event"
+                  />
+                </div>
+                <div>
+                  <h2 style="font-size: 1.5rem; margin-top: 0.5rem; font-style: italic;font-weight: 900 ; ">Title: <%= event.title %></h2> 
+                  <p style="font-size: 1.25rem; margin-top: 0.5rem; font-style: italic;font-weight: 900 ;"> Location:<%= event.location %> </p>
+                </div>
+                <div class="add-new">
+                  <a class="btn view" href="/events/<%=  event.id %>">
+                    View event
+                  </a>
+                </div>
+              </li>
+            <% }) %>
+          </ul>
+        </div>  
+        <div class="m-t">
+          <%include partials/footer%>
+        </div>
+        <% } else{ %>
+          <h2 style="text-align: center;margin:2rem 0rem; font-size:  3rem;color: white; font-style:italic ;">
+            No event Present
+          </h2>
+          <div style="width:10%; margin: 0 auto;">
+            <a style="display: flex;justify-content: center;"  class="btn list-btn" href="/new">
+              Add events
+            </a>
+          </div>
+      <% } %> 
+    </main>
+  </body>
+</html>
